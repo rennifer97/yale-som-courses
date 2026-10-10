@@ -265,3 +265,21 @@ input { font: inherit; }
 }
 .account button:hover, .text-btn:hover { background: rgba(255, 255, 255, .28); }
 .chat-actions { display: flex; align-items: center; gap: 8px; }
+
+/* ---------- Tuxedo Mask leaning on the left edge of the screen ---------- */
+.wrap { position: relative; z-index: 2; }
+.tuxedo {
+  position: absolute; z-index: 1; left: 4px; bottom: 34px; height: min(54%, 200px); width: auto;
+  transform: rotate(-4deg); transform-origin: 20% 100%;
+  filter: drop-shadow(3px 4px 8px rgba(30, 15, 70, .3));
+  pointer-events: none;
+}
+/* make room so he never covers the title or search box */
+@media (max-width: 1420px) { .hero-inner { padding-left: clamp(0px, 9vw, 110px); } }
+@media (max-width: 640px) { .tuxedo { height: 120px; bottom: 40px; } .hero-inner { padding-left: 44px; } }
+.tux-cape { animation: cape-wind 3.2s ease-in-out infinite; transform-box: fill-box; transform-origin: 0% 0%; }
+@keyframes cape-wind {
+  0%, 100% { transform: skewY(0deg) scaleX(1); }
+  50% { transform: skewY(-3deg) scaleX(1.04); }
+}
+@media (prefers-reduced-motion: reduce) { .tux-cape { animation: none; } }

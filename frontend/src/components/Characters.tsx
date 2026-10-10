@@ -1,4 +1,4 @@
-// Hand-drawn chibi tributes (original SVG, not official art): five Sailor Guardians
+// Hand-drawn chibi tributes (original SVG, not official art): ten Sailor Guardians
 // who peek over the course cards, and the cats Luna and Artemis for the chat.
 
 interface Guardian {
@@ -7,7 +7,8 @@ interface Guardian {
   hairDark: string
   eyes: string
   gem: string
-  style: 'odango' | 'bob' | 'long' | 'ponytail' | 'bow'
+  style: 'odango' | 'bob' | 'long' | 'ponytail' | 'bow' | 'cones' | 'short' | 'wavy' | 'bun'
+  skin?: string
 }
 
 const GUARDIANS: Guardian[] = [
@@ -16,6 +17,11 @@ const GUARDIANS: Guardian[] = [
   { name: 'Sailor Mars', hair: '#2a1f3d', hairDark: '#150f22', eyes: '#8b2fc9', gem: '#e8364f', style: 'long' },
   { name: 'Sailor Jupiter', hair: '#9a5a2e', hairDark: '#76411d', eyes: '#2e9a52', gem: '#3fbf6a', style: 'ponytail' },
   { name: 'Sailor Venus', hair: '#ffcf4a', hairDark: '#e6ad25', eyes: '#3b6fd8', gem: '#ff8c2a', style: 'bow' },
+  { name: 'Sailor Mini Moon', hair: '#ff8fc0', hairDark: '#e46aa2', eyes: '#d6345a', gem: '#ff6fa8', style: 'cones' },
+  { name: 'Sailor Uranus', hair: '#e8c98a', hairDark: '#c9a564', eyes: '#2d3f8f', gem: '#3b5bd6', style: 'short' },
+  { name: 'Sailor Neptune', hair: '#4fc3b8', hairDark: '#2f9d93', eyes: '#2f6fd0', gem: '#2fb8c8', style: 'wavy' },
+  { name: 'Sailor Pluto', hair: '#1f4a3a', hairDark: '#123226', eyes: '#b3244a', gem: '#8a2b4a', style: 'bun', skin: '#e2b896' },
+  { name: 'Sailor Saturn', hair: '#3b2a5e', hairDark: '#251a3e', eyes: '#7b4fd0', gem: '#8a5cd6', style: 'bob' },
 ]
 
 const SKIN = '#ffe3cf'
@@ -32,6 +38,7 @@ function Eye({ x, color }: { x: number; color: string }) {
 }
 
 function GuardianHead({ g }: { g: Guardian }) {
+  const skin = g.skin ?? SKIN
   return (
     <svg viewBox="0 0 100 64" className="guardian-svg" aria-hidden>
       {/* hair behind the head */}
@@ -46,6 +53,24 @@ function GuardianHead({ g }: { g: Guardian }) {
       {(g.style === 'long' || g.style === 'bow') && (
         <path d="M22 30 Q14 52 18 64 L82 64 Q86 52 78 30Z" fill={g.hair} />
       )}
+      {g.style === 'cones' && (
+        <>
+          {/* pink cone buns with short twin tails */}
+          <path d="M16 26 L22 4 L32 22Z" fill={g.hair} stroke={g.hairDark} strokeWidth="1.2" />
+          <path d="M84 26 L78 4 L68 22Z" fill={g.hair} stroke={g.hairDark} strokeWidth="1.2" />
+          <path d="M16 28 Q8 44 14 56 L22 52 Q18 42 24 32Z" fill={g.hair} />
+          <path d="M84 28 Q92 44 86 56 L78 52 Q82 42 76 32Z" fill={g.hair} />
+        </>
+      )}
+      {g.style === 'wavy' && (
+        <path d="M24 30 Q12 40 20 50 Q12 58 22 64 L78 64 Q88 58 80 50 Q88 40 76 30Z" fill={g.hair} stroke={g.hairDark} strokeWidth="1" />
+      )}
+      {g.style === 'bun' && (
+        <>
+          <circle cx="50" cy="12" r="9" fill={g.hair} stroke={g.hairDark} strokeWidth="1.2" />
+          <path d="M22 30 Q14 52 18 64 L82 64 Q86 52 78 30Z" fill={g.hair} />
+        </>
+      )}
       {g.style === 'ponytail' && (
         <path d="M66 14 Q92 6 90 34 Q88 50 80 58 Q84 36 70 24Z" fill={g.hair} stroke={g.hairDark} strokeWidth="1" />
       )}
@@ -58,12 +83,14 @@ function GuardianHead({ g }: { g: Guardian }) {
       )}
 
       {/* face */}
-      <ellipse cx="50" cy="44" rx="23" ry="22" fill={SKIN} />
+      <ellipse cx="50" cy="44" rx="23" ry="22" fill={skin} />
       <ellipse cx="34" cy="54" rx="4" ry="2.4" fill="#ffb3b8" opacity=".7" />
       <ellipse cx="66" cy="54" rx="4" ry="2.4" fill="#ffb3b8" opacity=".7" />
 
       {/* bangs */}
-      {g.style === 'bob' ? (
+      {g.style === 'short' ? (
+        <path d="M27 42 Q24 16 50 16 Q76 16 74 40 Q66 28 54 30 Q46 22 38 30 Q30 30 27 42Z" fill={g.hair} stroke={g.hairDark} strokeWidth="1" />
+      ) : g.style === 'bob' ? (
         <path d="M26 46 Q24 18 50 17 Q76 18 74 46 Q70 32 62 30 Q56 36 50 30 Q44 36 38 30 Q30 32 26 46Z" fill={g.hair} stroke={g.hairDark} strokeWidth="1" />
       ) : (
         <path d="M27 40 Q26 18 50 17 Q74 18 73 40 L67 30 L61 38 L56 28 L50 36 L44 28 L39 38 L33 30Z" fill={g.hair} stroke={g.hairDark} strokeWidth="1" />

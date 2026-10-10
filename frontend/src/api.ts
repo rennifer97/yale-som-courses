@@ -102,7 +102,9 @@ export function signOut() {
 export const fetchMe = () => call<User>('/api/me')
 
 export async function fetchCourses(): Promise<Course[]> {
-  return (await call<{ courses: Course[] }>('/api/courses')).courses
+  const courses = (await call<{ courses: Course[] }>('/api/courses')).courses
+  // A few rows have no category in the database; give them a label for the filter chips.
+  return courses.map((c) => ({ ...c, course_category: c.course_category?.trim() || 'Other' }))
 }
 
 export async function fetchChats(): Promise<SavedMessage[]> {

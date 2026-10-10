@@ -5,6 +5,7 @@ import CityBackdrop from './components/CityBackdrop'
 import CourseCard from './components/CourseCard'
 import CourseDetail from './components/CourseDetail'
 import Login from './components/Login'
+import TuxedoMask from './components/TuxedoMask'
 
 const SESSIONS = [
   { id: '', label: 'All terms' },
@@ -88,6 +89,7 @@ function Catalog({ user, onSignOut }: { user: User; onSignOut: () => void }) {
     <>
       <header className="hero">
         <CityBackdrop />
+        <TuxedoMask />
         <div className="account">
           <span>Hi, {user.name.split(' ')[0]}</span>
           <button onClick={onSignOut}>Sign out</button>
